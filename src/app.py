@@ -81,7 +81,7 @@ print(X_test.info())
 
 
 #Flask Dump
-filename = '../models/stroke_model.pkl'
+filename = '../models/stroke_modelf.pkl'
 pickle.dump(model_balanced, open(filename,'wb'))
 
 """
