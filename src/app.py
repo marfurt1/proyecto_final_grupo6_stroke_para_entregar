@@ -81,8 +81,8 @@ print(X_test.info())
 
 
 #Flask Dump
-#filename = '../models/stroke_model.pkl'
-#pickle.dump(model_balanced, open(filename,'wb'))
+filename = '../models/stroke_model.pkl'
+pickle.dump(model_balanced, open(filename,'wb'))
 
 """
 def run_model(X_train, X_test, y_train, y_test):
