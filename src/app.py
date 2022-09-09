@@ -1,4 +1,4 @@
-#import libraries
+#Import libraries
 import pandas as pd
 import numpy as np
 import pickle
@@ -10,14 +10,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report 
 from collections import Counter
-from imblearn.over_sampling import RandomOverSampler
 
-
-#import dataset
+#Import data
 df_raw = pd.read_csv('../data/raw/healthcare-dataset-stroke-data.csv') 
  
 #BMI Missing Value and outliers
-
 #Create Age bins 
 # The labels of bins
 labels = ['0 - 4','5 - 9','10 - 19','20 - 29', '30 - 39', '40 - 49', '50 - 59','60 - 69', '70 - +']
@@ -29,7 +26,6 @@ df_raw['age_bins'] = pd.cut(df_raw['age'], bins=bins, labels=labels, right=False
 
 #Calculate the bmi value depend of age bins and gender. using mean value.
 df_raw['bmi_new'] = df_raw.groupby(["age_bins","gender"])['bmi'].transform(lambda x: x.fillna(x.mean()))
-
 #Set the value of missing value
 df_raw['bmi'].fillna(df_raw['bmi_new'], inplace = True)
 
@@ -37,7 +33,6 @@ df_raw['bmi'].fillna(df_raw['bmi_new'], inplace = True)
 df_raw.drop(df_raw[(df_raw['bmi'] > 80)].index, inplace=True)
 
 #Transformation of category feature, and remove feature
-
 df_raw['stroke']=df_raw['stroke'].astype(int)
 df_raw['age']=df_raw['age'].astype(int)
 df_raw['heart_disease']=df_raw['heart_disease'].astype(int)
@@ -65,6 +60,7 @@ df_raw['work_type'] =df_raw['work_type'].astype(int)
 
 df_raw.drop(["age_bins","bmi_new","id"],axis=1,inplace=True)
 
+
 #we define our labels and features
 y = df_raw['stroke']
 X = df_raw.drop('stroke', axis=1)
@@ -85,8 +81,8 @@ print(X_test.info())
 
 
 #Flask Dump
-filename = '../models/stroke_model.pkl'
-pickle.dump(model_balanced, open(filename,'wb'))
+#filename = '../models/stroke_model.pkl'
+#pickle.dump(model_balanced, open(filename,'wb'))
 
 """
 def run_model(X_train, X_test, y_train, y_test):
@@ -100,7 +96,7 @@ len(X_train_nostroke)
 X_train_muestra=X_train[~ X_train.index.isin(list(y_train_nostroke.index))]
 y_train_muestra= y_train[~ y_train.index.isin(list(y_train_nostroke.index))]
 y_train_muestra.value_counts()
-
+from imblearn.over_sampling import RandomOverSampler
 os =  RandomOverSampler()
 X_train_res, y_train_res = os.fit_resample(X_train_muestra, y_train_muestra)
 print ("Distribution before resampling {}".format(Counter(y_train_muestra)))
@@ -113,5 +109,4 @@ pred_y = model_samp.predict(X_test)
 print(confusion_matrix(y_test, pred_y))
 print(classification_report(y_test, pred_y,zero_division=False))
 """
-
 
