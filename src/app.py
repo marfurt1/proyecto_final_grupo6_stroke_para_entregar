@@ -81,32 +81,8 @@ print(X_test.info())
 
 
 #Flask Dump
-#filename = '../models/stroke_modelfgi.pkl'
-#pickle.dump(model_balanced, open(filename,'wb'))
+filename = '../models/stroke_model.pkl'
+pickle.dump(model_balanced, open(filename,'wb'))
 
-"""
-def run_model(X_train, X_test, y_train, y_test):
-    clf_base = LogisticRegression(C=1.0,penalty='l2',random_state=1,solver="newton-cg")
-    clf_base.fit(X_train, y_train)
-    return clf_base
-y_train_nostroke=y_train[y_train==0].sample(1600)
-list(y_train_nostroke.index)
-X_train_nostroke=X_train[X_train.index.isin(list(y_train_nostroke.index))]
-len(X_train_nostroke)
-X_train_muestra=X_train[~ X_train.index.isin(list(y_train_nostroke.index))]
-y_train_muestra= y_train[~ y_train.index.isin(list(y_train_nostroke.index))]
-y_train_muestra.value_counts()
-from imblearn.over_sampling import RandomOverSampler
-os =  RandomOverSampler()
-X_train_res, y_train_res = os.fit_resample(X_train_muestra, y_train_muestra)
-print ("Distribution before resampling {}".format(Counter(y_train_muestra)))
-print ("Distribution labels after resampling {}".format(Counter(y_train_res)))
-y_train_final=pd.concat([y_train_nostroke, y_train_res ], ignore_index=True)
-X_train_final=pd.concat([X_train_nostroke, X_train_res ], ignore_index=True)
-print ("Distribution labels finals {}".format(Counter(y_train_final)))
-model_samp = run_model(X_train_final, X_test, y_train_final, y_test) 
-pred_y = model_samp.predict(X_test)
-print(confusion_matrix(y_test, pred_y))
-print(classification_report(y_test, pred_y,zero_division=False))
-"""
+
 
